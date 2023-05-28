@@ -1,0 +1,90 @@
+{% extends 'base.html'%}
+{% block content %}
+{% load static %}
+
+<div class="row">
+<aside class="col-md-12 ftco-animate fadeInUp ftco-animated">
+<div class="card">
+<table class="table table-borderless table-shopping-cart">
+<thead class="text-primary">
+<tr class="small text-uppercase">
+<tr class="text-center">
+<th scope="col">Product</th>
+<th scope="col" width="120">Quantity</th>
+<th scope="col" width="120">Price</th>
+<th scope="col" class="text-right" width="200"></th>
+</tr>
+</thead>
+<tbody>
+{% for cart_item in cart_items %}
+<tr>
+<td>
+<div class="aside"><img src="{{ cart_item.product.images.url }}" width="650" height="800" class="img-sm">
+</div>
+<figcaption class="info">
+<a href="#" class="title text-dark">{{ cart_item.product.slug }}</a>
+
+</figcaption>
+</figure>
+</td>
+<td>
+<!-- col.// -->
+<div class="col">
+<div class="input-group input-spinner">
+<div class="input-group-prepend">
+<button class="btn btn-light" type="button" id="button-plus"><i
+class="fa fa-minus"></i></button>
+</div>
+<input type="text" class="form-control" value="{{ cart_item.quantity }}">
+<div class="input-group-append">
+<a href="{% url 'add_cart' cart_item.product.id %}" class="btn btn-light" type="button" id="button-minus"><i
+class="fa fa-plus"></i></a>
+</div>
+</div> <!-- input-group.// -->
+</div> <!-- col.// -->
+</td>
+<td>
+<div class="price-wrap">
+<var class="price">Rs{{ cart_item.sub_total }}</var>
+<small class="text-muted"> Rs{{ cart_item.product.price }} each </small>
+</div> <!-- price-wrap .// -->
+</td>
+
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div> <!-- card.// -->
+
+</aside> <!-- col.// -->
+<aside class="col-lg-12">
+
+<div class="card">
+<div class="card-body">
+<dl class="dlist-align">
+<dt>Total price:</dt>
+<dd class="text-right">Rs{{total}}</dd>
+</dl>
+
+
+<hr>
+<p class="text-center mb-6">
+<img src="{% static '/images/misc/payments.png' %}" height="26">
+</p>
+<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+<a href="{% url 'shop' %}" class="btn btn-light btn-block">Continue Shopping</a>
+</div> <!-- card-body.// -->
+</div> <!-- card.// -->
+
+</aside> <!-- col.// -->
+
+
+</div> <!-- row.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+</div> <!-- container .// -->
+</section>
+
+
+
+{% endblock %}
